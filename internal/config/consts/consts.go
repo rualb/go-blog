@@ -33,7 +33,7 @@ const (
 	PathBlogAssets = "/blog/assets"
 
 	PathBlogPostsEntity          = "/blog/posts/:code"          //
-	PathBlogStatusAPI            = "/blog/api/status"           // private
+	PathBlogStatusAPI            = "/blog/api/status"           // get _csrf, user related, no-cache
 	PathBlogConfigAPI            = "/blog/api/config"           // public
 	PathBlogPostsEntityByCodeAPI = "/blog/api/posts/:code/code" //
 
