@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"go-blog/internal/config"
 	"go-blog/internal/config/consts"
-	"go-blog/internal/util/utilstring"
+	"go-blog/internal/util/utilhttp"
 	xweb "go-blog/internal/web"
 	"html/template"
 	"io"
@@ -67,7 +67,7 @@ func NewModelWrap(c echo.Context, model any, isFragment bool, title string, appC
 		API: ModelAPI{
 
 			Lang:            lang.Lang,
-			URL:             utilstring.AppendURL,
+			URL:             utilhttp.AppendURL,
 			IsAuthenticated: xweb.IsSignedIn(c),
 		},
 		Prm: ModelPrm{
@@ -82,7 +82,7 @@ func NewModelWrap(c echo.Context, model any, isFragment bool, title string, appC
 
 			AppConfig: ModelAppConfig{
 				AppTitle:        appConfig.Title,
-				CopyrightTitle:  fmt.Sprintf("© %v %v", time.Now().UTC().Year(), appConfig.Title),
+				CopyrightTitle:  fmt.Sprintf("%s © %d", appConfig.Title, time.Now().UTC().Year()),
 				GlobalVersion:   appConfig.Assets.GlobalVersion,
 				AssetsPublicURL: appConfig.Assets.AssetsPublicURL,
 			},
@@ -93,10 +93,10 @@ func NewModelWrap(c echo.Context, model any, isFragment bool, title string, appC
 	}
 
 	data, err := json.Marshal(map[string]any{
-		"test":                  `"<>`,
-		"prm_lang_code":         res.Prm.LangCode,
-		"prm_assets_public_url": res.Prm.AppConfig.AssetsPublicURL,
-		"prm_global_version":    res.Prm.AppConfig.GlobalVersion,
+		"test":              `"<>`,
+		"lang_code":         res.Prm.LangCode,
+		"assets_public_url": res.Prm.AppConfig.AssetsPublicURL,
+		"global_version":    res.Prm.AppConfig.GlobalVersion,
 	})
 
 	if err != nil {

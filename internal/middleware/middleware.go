@@ -39,7 +39,7 @@ func Init(e *echo.Echo, appService service.AppService) {
 	//
 
 	//
-	e.Use(xweb.CsrfMiddleware(appService))
+	// e.Use(xweb.CsrfMiddleware(appService))
 
 	initSys(e, appService)
 }
@@ -78,13 +78,13 @@ func AssetsContentsMiddleware(e *echo.Echo, appService service.AppService,
 
 ) {
 
-	xlog.Info("Start serving embedded static content")
+	xlog.Info("start serving embedded static content")
 
 	{
 		grp := e.Group(consts.PathBlogAssets, func(next echo.HandlerFunc) echo.HandlerFunc {
 			return func(c echo.Context) error {
 				// c.Response().Before()
-				c.Response().Header().Add("Cache-Control", "public,max-age=31536000,immutable")
+				c.Response().Header().Add(`Cache-Control`, "public,max-age=31536000,immutable")
 				return next(c)
 			}
 		})

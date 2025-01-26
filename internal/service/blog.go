@@ -14,6 +14,10 @@ type BlogPost struct {
 	Status    string    `json:"status" gorm:"size:255"`
 	CreatedAt time.Time `json:"-"`
 	UpdatedAt time.Time `json:"-"`
+
+	IsPublished bool `json:"-"` // Indicates whether the post is available for public use
+	IsListed    bool `json:"-"` // Indicates whether the post is visible in the posts list // IsIndexed
+
 }
 
 func (x *BlogPost) Fill() {
@@ -57,45 +61,45 @@ func (x *BlogPostDAO) FindByID(id int64) (*BlogPost, error) {
 		return nil, nil // fmt.Errorf("id cannot be empty")
 	}
 
-	user := new(BlogPost)
+	data := new(BlogPost)
 
-	result := x.appService.Repository().Find(user, "id = ?", id)
+	result := x.appService.Repository().Find(data, "id = ?", id)
 
 	if result.Error != nil || result.RowsAffected == 0 {
 		return nil, result.Error
 	}
 
-	return user, nil
+	return data, nil
 }
 func (x *BlogPostDAO) FindByCode(code string) (*BlogPost, error) {
 	if code == "" {
 		return nil, nil // fmt.Errorf("id cannot be empty")
 	}
 
-	user := new(BlogPost)
+	data := new(BlogPost)
 
-	result := x.appService.Repository().Find(user, "code = ?", code)
+	result := x.appService.Repository().Find(data, "code = ?", code)
 
 	if result.Error != nil || result.RowsAffected == 0 {
 		return nil, result.Error
 	}
 
-	return user, nil
+	return data, nil
 }
 func (x *BlogPostDAO) ID(id int64) (int64, error) {
 	if id == 0 {
 		return 0, nil // fmt.Errorf("id cannot be empty")
 	}
 
-	user := new(BlogPost)
+	data := new(BlogPost)
 
-	result := x.appService.Repository().Select("id").Limit(1).Find(user, "id = ? ", id)
+	result := x.appService.Repository().Select("id").Limit(1).Find(data, "id = ? ", id)
 
 	if result.Error != nil || result.RowsAffected == 0 {
 		return 0, result.Error
 	}
 
-	return user.ID, nil
+	return data.ID, nil
 }
 
 func (x *BlogPostDAO) Code(code string) (int64, error) {
@@ -103,15 +107,15 @@ func (x *BlogPostDAO) Code(code string) (int64, error) {
 		return 0, nil // fmt.Errorf("id cannot be empty")
 	}
 
-	user := new(BlogPost)
+	data := new(BlogPost)
 
-	result := x.appService.Repository().Select("id").Find(user, "code = ?", code)
+	result := x.appService.Repository().Select("id").Find(data, "code = ?", code)
 
 	if result.Error != nil || result.RowsAffected == 0 {
 		return 0, result.Error
 	}
 
-	return user.ID, nil
+	return data.ID, nil
 }
 
 func (x *BlogPostDAO) Create(data *BlogPost) error {

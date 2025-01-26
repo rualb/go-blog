@@ -164,10 +164,10 @@ func (x *ModelValidatorStr) Email(minLen int) (hasError bool) {
 	return false
 }
 
-// PhoneNumber checks if the field's value is a valid phone number.
-func (x *ModelValidatorStr) PhoneNumber() (hasError bool) {
+// Tel checks if the field's value is a valid phone number.
+func (x *ModelValidatorStr) Tel() (hasError bool) {
 	v := x.fieldValue
-	if len(v) > 0 && !utilstring.IsPhoneNumberFull(v) {
+	if len(v) > 0 && !utilstring.IsTelFull(v) {
 		x.model.AddError(x.fieldName,
 			x.lang.Lang("Please enter a valid phone number." /*Lang*/),
 		)

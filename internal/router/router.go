@@ -56,7 +56,7 @@ func initSys(e *echo.Echo, appService service.AppService) {
 	}
 
 	if !hasAPIKey {
-		xlog.Panic("Sys api key is empty")
+		xlog.Panic("sys api key is empty")
 		return
 	}
 
@@ -67,7 +67,7 @@ func initSys(e *echo.Echo, appService service.AppService) {
 		e.Use(middleware.Recover())
 		// e.Use(middleware.Logger())
 	} else {
-		xlog.Warn("Sys api serve in main listener: %v", listen)
+		xlog.Warn("sys api serve in main listener: %v", listen)
 	}
 
 	sysAPIAccessAuthMW := middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{
@@ -91,7 +91,7 @@ func initSys(e *echo.Echo, appService service.AppService) {
 
 		// start as async task
 		go func() {
-			xlog.Info("Sys api serve on: %v main: %v", listenSys, listen)
+			xlog.Info("sys api serve on: %v main: %v", listenSys, listen)
 
 			if err := e.Start(listenSys); err != nil {
 				if err != http.ErrServerClosed {
@@ -103,7 +103,7 @@ func initSys(e *echo.Echo, appService service.AppService) {
 		}()
 
 	} else {
-		xlog.Info("Sys api server serve on main listener: %v", listen)
+		xlog.Info("sys api server serve on main listener: %v", listen)
 	}
 
 }
@@ -152,13 +152,13 @@ func initDebugController(e *echo.Echo, _ service.AppService) {
 
 func initBlogController(e *echo.Echo, appService service.AppService) {
 
-	xlog.Info("Adding blog controllers")
+	xlog.Info("adding blog controllers")
 
 	prefix := consts.PathBlog
 	group := e.Group(prefix)
 
 	path := func(s string) string {
-		xlog.Info("Route: %s", s)
+		xlog.Info("route: %s", s)
 		return strings.TrimPrefix(s, prefix)
 	}
 

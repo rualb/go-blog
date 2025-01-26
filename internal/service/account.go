@@ -4,7 +4,7 @@ package service
 type UserAccount struct {
 	ID       string `gorm:"primaryKey"`
 	Username string // `gorm:"uniqueIndex:,where:username != ''"`
-	// PhoneNumber string
+	// Tel string
 	// Email string // use this on emailing and show
 	// NormalizedEmail string // `gorm:"uniqueIndex:,where:normalized_email != ''"` // use this on search
 	// // SecurityStamp   string // Key := Base32(Random(32))  HMACSHA1(Key)  Key == VTOQQ2PQKD7A2KTSXU7OFLKUNI7QEZRJ
@@ -41,13 +41,13 @@ func (x defaultAccountService) FindByID(id string) (*UserAccount, error) {
 		return nil, nil // fmt.Errorf("id cannot be empty")
 	}
 
-	user := new(UserAccount)
+	data := new(UserAccount)
 
-	result := x.appService.Repository().Find(user, "id = ?", id)
+	result := x.appService.Repository().Find(data, "id = ?", id)
 
 	if result.Error != nil || result.RowsAffected == 0 {
 		return nil, result.Error
 	}
 
-	return user, nil
+	return data, nil
 }

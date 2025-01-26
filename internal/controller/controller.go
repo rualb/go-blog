@@ -30,10 +30,10 @@ func IsDELETE(c echo.Context) bool {
 	return c.Request().Method == http.MethodDelete
 }
 
-func CsrfToHeader(c echo.Context) {
-	csrf, _ := c.Get("_csrf").(string)
-	c.Response().Header().Set("X-CSRF-Token", csrf)
-}
+// func CsrfToHeader(c echo.Context) {
+// 	csrf, _ := c.Get("_csrf").(string)
+// 	c.Response().Header().Set("X-CSRF-Token", csrf)
+// }
 
 func GetAccount(c echo.Context) *service.UserAccount {
 	acc, _ := c.Get("user_account").(*service.UserAccount) // cached by middleware
