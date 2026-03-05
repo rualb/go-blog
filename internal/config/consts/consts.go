@@ -16,8 +16,10 @@ const (
 
 const (
 	// PathAPI represents the group of PathAPI.
-	PathAPI        = "/api"
-	PathAuthSignin = "/auth/signin"
+	PathAPI           = "/api"
+	PathAuthSignin    = "/auth/signin"
+	PathAuthStatusAPI = "/auth/api/status"
+	PathHome          = "/"
 )
 const (
 	RoleAdmin = "admin"

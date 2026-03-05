@@ -64,7 +64,9 @@ func (x *defaultAppService) mustBuild() {
 
 	//
 
-	mustCreateRepository(x)
+	if appConfig.DB.Migration {
+		mustCreateRepository(x) //
+	}
 
 	if x.vaultService, err = newVaultService(x); err != nil {
 		xlog.Panic("vault service: %v", err)
